@@ -8,29 +8,32 @@ namespace ApartmentBrokerage.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Controllers
-            builder.Services.AddControllers();
+            // הגדרת CORS - מאפשר לאנגולר (localhost:4200) לגשת לשרת
+            builder.Services.AddCors(options => {
+                options.AddPolicy("AllowAngular", b =>
+                    b.AllowAnyOrigin()
+                     .AllowAnyMethod()
+                     .AllowAnyHeader());
+            });
 
-            // Swagger (הגרסה הרגילה והנוחה)
+            builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
-            // SqlExecService
             builder.Services.AddScoped<SqlExecService>();
 
             var app = builder.Build();
 
-            // Swagger UI
+            // חשוב: UseCors חייב להופיע לפני MapControllers
+            app.UseCors("AllowAngular");
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
-
+            //app.UseHttpsRedirection();
             app.UseAuthorization();
-
             app.MapControllers();
 
             app.Run();
