@@ -1,41 +1,193 @@
-# 🏠 Apartment Brokerage System - מערכת תיווך נדל"ן
+# 🏠 Apartment Brokerage System
 
-מערכת Fullstack מקצועית לניהול והצגת נכסי נדל"ן. הפרויקט כולל ממשק לקוח מעוצב באנגולר, שרת API ב-.NET Core ומסד נתונים SQL Server.
+מערכת **Fullstack מקצועית לניהול והצגת נכסי נדל״ן**.
+המערכת מאפשרת צפייה בדירות, חיפוש מתקדם וניהול נתונים דרך API ו־Database רלציוני.
 
-## ✨ מה המערכת כוללת?
-- **גלריית נכסים:** תצוגה ויזואלית של דירות עם כרטיסיות (Cards) מעוצבות.
-- **חיפוש חכם:** אפשרות לחיפוש דירות לפי עיר, כתובת או תיאור בזמן אמת.
-- **ניהול סוכנים וסטטוסים:** לכל דירה משויך סוכן אחראי וסטטוס (פנוי, במו"מ, תפוס).
-- **תשתית נתונים יציבה:** שימוש ב-Stored Procedures לניהול שליפת והזנת מידע.
+הפרויקט בנוי בארכיטקטורה מודרנית הכוללת **Frontend באנגולר, Backend ב-.NET Web API ומסד נתונים SQL Server**.
 
-## 🛠 טכנולוגיות (Tech Stack)
-- **Frontend:** Angular 17+, TypeScript, SCSS.
-- **Backend:** .NET Web API.
-- **Database:** SQL Server (T-SQL).
-- **Fonts & UI:** Assistant (Google Fonts), Flexbox & Grid.
+---
 
-## 🗄 מבנה מסד הנתונים
-הנתונים נשמרים ב-3 טבלאות מקושרות (Relational DB):
-1. **Agents:** פרטי סוכני הנדל"ן.
-2. **ApartmentStatuses:** סוגי הסטטוסים של הנכסים.
-3. **Apartments:** ריכוז נתוני הדירות עם קשרי גומלין (Foreign Keys) לסוכנים ולסטטוסים.
+# ✨ Features
 
-### 💡 פתרון בעיות טכניות
-במהלך הפיתוח טופלה שגיאה **Msg 515** (ניסיון להכניס NULL לעמודת AgentId). 
-**הפתרון:** הוספת מנגנון המבטיח שקודם מוזנים הסוכנים לטבלה, ורק לאחר מכן מקשרים את הדירות לסוכן קיים למניעת חריגות ב-DB.
+### 🏢 Apartment Gallery
 
-## 🚀 איך מפעילים את הפרויקט?
+תצוגה ויזואלית של נכסי נדל״ן באמצעות **כרטיסיות מעוצבות (Cards)** המציגות פרטי דירה בצורה ברורה ונוחה.
 
-### 1. צד שרת (Backend)
-יש להפעיל את ה-API מתוך התיקייה:
+### 🔎 Smart Search
+
+אפשרות לחיפוש דירות בזמן אמת לפי:
+
+* עיר
+* כתובת
+* תיאור הנכס
+
+### 👨‍💼 Agent Management
+
+לכל דירה משויך **סוכן נדל״ן אחראי** המנהל את הטיפול בנכס.
+
+### 📊 Apartment Status Tracking
+
+מערכת סטטוסים לנכסים:
+
+* Available – פנוי
+* In Negotiation – במו״מ
+* Occupied – תפוס
+
+### 🗄 Reliable Data Infrastructure
+
+המערכת משתמשת ב־**Stored Procedures** לניהול שליפת והזנת נתונים בצורה יעילה ומסודרת.
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
+* Angular 17+
+* TypeScript
+* SCSS
+* Flexbox & Grid
+* Google Fonts (Assistant)
+
+## Backend
+
+* .NET Web API
+* C#
+
+## Database
+
+* SQL Server
+* T-SQL
+* Stored Procedures
+
+---
+
+# 🗄 Database Structure
+
+המערכת מבוססת על **מסד נתונים רלציוני** הכולל שלוש טבלאות מרכזיות:
+
+### Agents
+
+מכילה את פרטי סוכני הנדל״ן.
+
+### ApartmentStatuses
+
+טבלת סטטוסים עבור נכסים.
+
+### Apartments
+
+טבלת הדירות הכוללת:
+
+* פרטי נכס
+* קישור לסוכן (AgentId)
+* קישור לסטטוס (StatusId)
+
+הקשרים בין הטבלאות מנוהלים באמצעות **Foreign Keys**.
+
+---
+
+# ⚠️ Technical Issue Solved
+
+במהלך הפיתוח התרחשה שגיאת SQL:
+
+Msg 515 – Cannot insert the value NULL into column 'AgentId'
+
+### Cause
+
+ניסיון להכניס דירה כאשר לא קיים סוכן משויך.
+
+### Solution
+
+הוטמע מנגנון עבודה מסודר:
+
+1. הזנת סוכנים לטבלת **Agents**
+2. שימוש ב-AgentId קיים בעת יצירת דירה
+
+כך נמנעת חריגה במסד הנתונים ונשמרת שלמות הנתונים.
+
+---
+
+# 🚀 Running the Project
+
+## 1️⃣ Backend
+
+יש להפעיל את ה-API מתוך תיקיית השרת:
+
 ```bash
 cd api/ApartmentBrokerage.Api
 dotnet run
+```
 
+השרת יעלה בדרך כלל בכתובת:
 
-### 2. צד לקוח (Frontend))
-יש לפתוח טרמינל חדש, לנווט לתיקיית הלקוח ולהריץ את הפקודות הבאות:
+```
+http://localhost:5000
+```
+
+---
+
+## 2️⃣ Frontend
+
+יש לפתוח טרמינל נוסף ולהריץ:
+
 ```bash
 cd client/Apartment-app
 npm install
 ng serve
+```
+
+האפליקציה תהיה זמינה בכתובת:
+
+```
+http://localhost:4200
+```
+
+---
+
+# 📌 Project Architecture
+
+```
+project-root
+│
+├── api
+│   └── ApartmentBrokerage.Api
+│
+├── client
+│   └── Apartment-app
+│
+└── database
+    └── SQL scripts
+```
+
+---
+
+# 📷 UI Concept
+
+הממשק מציג את הדירות באמצעות **כרטיסיות מודרניות** עם פרטים מרכזיים כגון:
+
+* כתובת
+* עיר
+* מחיר
+* סטטוס
+* סוכן אחראי
+
+העיצוב מבוסס **Grid ו-Flexbox** לקבלת תצוגה רספונסיבית ונוחה למשתמש.
+
+---
+
+# 📌 Future Improvements
+
+אפשרויות הרחבה עתידיות:
+
+* מערכת התחברות לסוכנים
+* הוספת תמונות לנכסים
+* פילטרים מתקדמים לחיפוש
+* מערכת ניהול נכסים מלאה (CRUD)
+* פריסה לענן
+
+---
+
+# 👩‍💻 Author
+
+Developed as a **Fullstack practice project**
+Angular • .NET • SQL Server
