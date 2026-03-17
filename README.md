@@ -57,7 +57,6 @@
 ## Database
 
 * SQL Server
-* T-SQL
 * Stored Procedures
 
 ---
@@ -121,7 +120,7 @@ dotnet run
 השרת יעלה בדרך כלל בכתובת:
 
 ```
-http://localhost:5000
+http://localhost:5001
 ```
 
 ---
