@@ -31,3 +31,11 @@
 ```bash
 cd api/ApartmentBrokerage.Api
 dotnet run
+
+
+### 2. צד לקוח (Frontend))
+יש לפתוח טרמינל חדש, לנווט לתיקיית הלקוח ולהריץ את הפקודות הבאות:
+```bash
+cd client/Apartment-app
+npm install
+ng serve
