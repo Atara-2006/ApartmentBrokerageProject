@@ -1,9 +1,9 @@
 # 🏠 Apartment Brokerage System
 
-מערכת **Fullstack מקצועית לניהול והצגת נכסי נדל״ן**.
-המערכת מאפשרת צפייה בדירות, חיפוש מתקדם וניהול נתונים דרך API ו־Database רלציוני.
+A **professional fullstack system for managing and showcasing real estate properties**.
+The application enables property browsing, advanced search, and structured data management via an API and a relational database.
 
-הפרויקט בנוי בארכיטקטורה מודרנית הכוללת **Frontend באנגולר, Backend ב-.NET Web API ומסד נתונים SQL Server**.
+Built using a modern architecture that combines **Angular (Frontend), .NET Web API (Backend), and SQL Server (Database)**.
 
 ---
 
@@ -11,31 +11,31 @@
 
 ### 🏢 Apartment Gallery
 
-תצוגה ויזואלית של נכסי נדל״ן באמצעות **כרטיסיות מעוצבות (Cards)** המציגות פרטי דירה בצורה ברורה ונוחה.
+A clean and modern **card-based UI** that presents property details in a clear and user-friendly way.
 
 ### 🔎 Smart Search
 
-אפשרות לחיפוש דירות בזמן אמת לפי:
+Real-time search functionality based on:
 
-* עיר
-* כתובת
-* תיאור הנכס
+* City
+* Address
+* Property description
 
 ### 👨‍💼 Agent Management
 
-לכל דירה משויך **סוכן נדל״ן אחראי** המנהל את הטיפול בנכס.
+Each property is assigned to a **responsible real estate agent**, ensuring organized handling and ownership.
 
 ### 📊 Apartment Status Tracking
 
-מערכת סטטוסים לנכסים:
+Properties are managed using predefined statuses:
 
-* Available – פנוי
-* In Negotiation – במו״מ
-* Occupied – תפוס
+* Available
+* In Negotiation
+* Occupied
 
 ### 🗄 Reliable Data Infrastructure
 
-המערכת משתמשת ב־**Stored Procedures** לניהול שליפת והזנת נתונים בצורה יעילה ומסודרת.
+The system uses **Stored Procedures** to ensure efficient, consistent, and secure data operations.
 
 ---
 
@@ -63,46 +63,46 @@
 
 # 🗄 Database Structure
 
-המערכת מבוססת על **מסד נתונים רלציוני** הכולל שלוש טבלאות מרכזיות:
+The system is built on a **relational database** consisting of three main tables:
 
 ### Agents
 
-מכילה את פרטי סוכני הנדל״ן.
+Stores real estate agent details.
 
 ### ApartmentStatuses
 
-טבלת סטטוסים עבור נכסים.
+Defines the available property statuses.
 
 ### Apartments
 
-טבלת הדירות הכוללת:
+Contains full property data, including:
 
-* פרטי נכס
-* קישור לסוכן (AgentId)
-* קישור לסטטוס (StatusId)
+* Property details
+* Reference to agent (**AgentId**)
+* Reference to status (**StatusId**)
 
-הקשרים בין הטבלאות מנוהלים באמצעות **Foreign Keys**.
+Relationships are enforced using **Foreign Keys**, ensuring data integrity.
 
 ---
 
-# ⚠️ Technical Issue Solved
+# ⚠️ Technical Issue Resolved
 
-במהלך הפיתוח התרחשה שגיאת SQL:
+During development, the following SQL error occurred:
 
-Msg 515 – Cannot insert the value NULL into column 'AgentId'
+**Msg 515 – Cannot insert the value NULL into column 'AgentId'**
 
 ### Cause
 
-ניסיון להכניס דירה כאשר לא קיים סוכן משויך.
+An attempt was made to insert a property without assigning an existing agent.
 
 ### Solution
 
-הוטמע מנגנון עבודה מסודר:
+A structured workflow was implemented:
 
-1. הזנת סוכנים לטבלת **Agents**
-2. שימוש ב-AgentId קיים בעת יצירת דירה
+1. Insert agents into the **Agents** table
+2. Use a valid **AgentId** when creating a property
 
-כך נמנעת חריגה במסד הנתונים ונשמרת שלמות הנתונים.
+This ensures database integrity and prevents insertion errors.
 
 ---
 
@@ -110,14 +110,14 @@ Msg 515 – Cannot insert the value NULL into column 'AgentId'
 
 ## 1️⃣ Backend
 
-יש להפעיל את ה-API מתוך תיקיית השרת:
+Run the API from the server directory:
 
 ```bash
 cd api/ApartmentBrokerage.Api
 dotnet run
 ```
 
-השרת יעלה בדרך כלל בכתובת:
+The server will typically be available at:
 
 ```
 http://localhost:5001
@@ -127,7 +127,7 @@ http://localhost:5001
 
 ## 2️⃣ Frontend
 
-יש לפתוח טרמינל נוסף ולהריץ:
+Open another terminal and run:
 
 ```bash
 cd client/Apartment-app
@@ -135,7 +135,7 @@ npm install
 ng serve
 ```
 
-האפליקציה תהיה זמינה בכתובת:
+The application will be available at:
 
 ```
 http://localhost:4200
@@ -162,31 +162,31 @@ project-root
 
 # 📷 UI Concept
 
-הממשק מציג את הדירות באמצעות **כרטיסיות מודרניות** עם פרטים מרכזיים כגון:
+The interface presents properties using **modern responsive cards**, displaying key information such as:
 
-* כתובת
-* עיר
-* מחיר
-* סטטוס
-* סוכן אחראי
+* Address
+* City
+* Price
+* Status
+* Assigned agent
 
-העיצוב מבוסס **Grid ו-Flexbox** לקבלת תצוגה רספונסיבית ונוחה למשתמש.
+The layout is built using **Grid and Flexbox** to ensure a responsive and smooth user experience.
 
 ---
 
 # 📌 Future Improvements
 
-אפשרויות הרחבה עתידיות:
+Planned enhancements include:
 
-* מערכת התחברות לסוכנים
-* הוספת תמונות לנכסים
-* פילטרים מתקדמים לחיפוש
-* מערכת ניהול נכסים מלאה (CRUD)
-* פריסה לענן
+* Agent authentication system
+* Property image uploads
+* Advanced filtering options
+* Full property management system (CRUD)
+* Cloud deployment
 
 ---
 
 # 👩‍💻 Author
 
-Developed as a **Fullstack practice project**
-Angular • .NET • SQL Server
+Developed as a **fullstack practice project**
+**Angular • .NET • SQL Server**
